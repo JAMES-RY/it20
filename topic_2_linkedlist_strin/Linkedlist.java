@@ -1,12 +1,11 @@
-
-
-package topic_2_linkedlist_int;
-
+package topic_2_linkedlist_string;
 public class LinkedList {
-    	private Node head; 
+
+         
+          private Node head; 
 
     // Method to add a new node at the end of the list
-    public void add(int data) {
+    public void add(String data) {
         Node newNode = new Node(data);
         if (head == null) {
             head = newNode;
@@ -18,41 +17,56 @@ public class LinkedList {
         }
         current.next = newNode;
     }
-    
+
     // Method to print the linked list
     public void printList() {
         Node current = head;
+        if (current == null) {
+            System.out.println("List is empty.");
+            return;
+        }
         while (current != null) {
-            System.out.print(current.data + " -> ");
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" -> ");
+            }
             current = current.next;
         }
-        System.out.println("null");
+        System.out.println(" -> null");
     }
-    
-    // Method to delete a node by value
-    public void deleteByValue(int value) {
-        if (head == null) return;
 
-        // If the head needs to be removed
-        if (head.data == value) {
+    // Method to delete a node by value
+    public void deleteByValue(String value) {
+        if (head == null) {
+            System.out.println("List is empty. Nothing to delete.");
+            return;
+        }
+
+        if (head.data.equals(value)) {
             head = head.next;
+            System.out.println("Deleted: " + value);
             return;
         }
 
         Node current = head;
         while (current.next != null) {
-            if (current.next.data == value) {
-                current.next = current.next.next; 
+            if (current.next.data.equals(value)) {
+                current.next = current.next.next;
+                System.out.println("Deleted: " + value);
                 return;
             }
             current = current.next;
         }
+        System.out.println("Value '" + value + "' not found in the list.");
     }
-    
-    // Method to move a node to a new position /swap nodes
+
+    // Method to move a node to a new position / swap nodes
     public void moveNodePointer(int currentIndex, int newIndex) {
-        if (head == null || currentIndex == newIndex) return;
-        
+        if (head == null || currentIndex == newIndex) {
+            System.out.println("No nodes to move or same index provided.");
+            return;
+        }
+
         Node current = head;
         Node prev = null;
         Node movingNode = null;
@@ -67,14 +81,16 @@ public class LinkedList {
         movingNode = current;
 
         // If the node to move was not found
-        if (movingNode == null) return;
+        if (movingNode == null) {
+            System.out.println("Invalid current index.");
+            return;
+        }
 
         // Remove the node from its current position
         if (movingPrev != null) {
             movingPrev.next = movingNode.next;
         } else {
-        	// Moving the head
-            head = movingNode.next; 
+            head = movingNode.next; // Moving the head
         }
 
         // Insert the node at the new position
@@ -92,10 +108,12 @@ public class LinkedList {
             movingNode.next = head;
             head = movingNode;
         }
-
-    // Method to add a new node at the end of the list
- 
+        System.out.println("Moved node from index " + currentIndex + " to " + newIndex + ".");
     }
 }
 
-    
+
+   
+
+
+
